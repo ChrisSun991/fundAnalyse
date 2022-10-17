@@ -1,0 +1,2 @@
+# fundAnalyse
+- Without multiprocessing
