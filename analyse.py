@@ -7,8 +7,9 @@ from requests import exceptions as RequestException
 import math
 import random
 import os
+from VARIABLES import *
 
-output_dir = ""
+# output_dir = ""
 
 def get_fundcode():
     '''
@@ -101,13 +102,18 @@ def main(fundcode):
 
 if __name__=='__main__':
     # 获取所有基金代码
+
     check_path(output_dir)
     get_fundcode()
-    fundsPartial = [x.strip() for x in open('selectedFunds.txt', 'r', encoding= 'utf-8-sig').readlines()]
-    # fundcode = '519961'
-    # fundcodes = pd.read_csv(output_dir + '/fundcode.csv', converters={'fundcode': str}) ## This takes very long time
+    if full_funds_data:
+        fundcodes = pd.read_csv(output_dir + '/fundcode.csv', converters={'fundcode': str}) ## This takes very long time
+        fundcodes_looper = fundcodes['fundcode']
+    else:
+        fundcodes = [x.strip() for x in open('selectedFunds.txt', 'r', encoding= 'utf-8-sig').readlines()]
+        fundcodes_looper = fundcodes
+        # fundcode = '519961'
     # 获取所有基金净值数据
-    for fundcode in fundsPartial: #['fundcode']:
+    for fundcode in fundcodes_looper:
         print(fundcode)
         main(fundcode)
         time.sleep(random.randint(5, 10))
